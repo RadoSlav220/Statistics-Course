@@ -49,3 +49,58 @@ t
 pexp(t, 1/10)
 
 
+# Task 33
+
+# X = liquid volume
+# X ~ N(252, 3)
+
+# A = P (X > 250)
+# B
+
+# Simulations
+simNormA <- rnorm(1000000, 252, 3)
+length(which(simNormA > 250)) / length(simNormA)
+
+sim.pour <- function(){
+  simNormA <- rnorm(5, 252, 3)
+  length(which(simNormA > 250)) <= 2  
+}
+
+res <- replicate(100000, sim.pour())
+sum(res) / length(res)
+
+# Built-in functions
+# P (A) = P (X > 250) = 1 - P (X <= 250)
+p <- 1 - pnorm(250, 252, 3)
+p
+
+# Y = pourings with > 250 ml from total of 5 pourings
+# Y ~ Bi(5, p)
+# P (B) = P (Y <= 2)
+pbinom(2, 5, p)
+
+
+# Task 34
+
+n <- 10^8
+x <- runif(n, -1, 1)
+y <- runif(n, -1, 1)
+4*sum(x^2 + y^2 < 1)/n
+
+
+# Task 36
+# X = working time 
+# X ~ N(260, 50)
+
+# P (X > 240) = 1 - P (X  <= 240)
+1 - pnorm(240, 260, 50)
+
+# P (180 <= X <= 300) = P (X <= 300) - P (X <= 180)
+pnorm(300, 260, 50) - pnorm(180, 260, 50)
+
+# t=?  P (X >= t) = 0.9
+# t=?  P (X <= t) = 0.1
+qnorm(0.1, 260, 50)
+
+
+
